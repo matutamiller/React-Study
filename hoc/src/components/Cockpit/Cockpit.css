@@ -1,0 +1,33 @@
+.red {
+    color: red;
+    transition: all 1s ease;
+    
+  }
+  
+  .bold {
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 1s ease;  
+  }
+  .Button {
+    border: 1px solid blue;
+    padding: 16px;
+    background-color: green;
+    font: inherit;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .Button:hover {
+    background-color: lightgreen;
+    color: #000;
+  }
+  
+  .Button.Red {
+    background-color: red;
+  }
+  
+  .Button.Red:hover {
+    background-color: salmon;
+    color: #000;
+  }

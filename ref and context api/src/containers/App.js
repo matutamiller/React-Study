@@ -5,6 +5,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
 
+export const AuthContext = React.createContext(false);
 
 
 class App extends Component {
@@ -15,13 +16,15 @@ class App extends Component {
       { id: 'asdf11', name: 'Stephanie', age: 26 }
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
+    authenticated: false
   }
 
   nameChangedHandler = ( event, id ) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
     });
+  
 
     const person = {
       ...this.state.persons[personIndex]
@@ -49,6 +52,10 @@ class App extends Component {
     this.setState( { showPersons: !doesShow } );
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  }
+
   render () {
     
 
@@ -59,7 +66,8 @@ class App extends Component {
       persons = <Persons 
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
-          changed={this.nameChangedHandler}/>;  
+          changed={this.nameChangedHandler}
+          />;  
     }
 
     
@@ -69,8 +77,11 @@ class App extends Component {
         <Cockpit 
         showPersons={this.state.showPersons}
         persons={this.state.persons}
+        login={this.loginHandler}
         clicked={this.togglePersonsHandler}/>
+        <AuthContext.Provider value={this.state.authenticated}>
         {persons}
+        </AuthContext.Provider>
       </Aux>
       
     );

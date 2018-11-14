@@ -10,7 +10,7 @@
     top: 30%;
     left: 25%;
     width: 50%;
-    transition: all 0.3s ease-out;
+    transition: all 0.4s ease-out;
 }
 
 .ModalOpen {
@@ -18,7 +18,7 @@
 }
 
 .ModalClosed {
-    animation: closeModal 0.4s ease-out forwards;
+    animation: closeModal 0.7s ease-out forwards;
 }
 
 @keyframes openModal {

@@ -1,11 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 
 const todo = props => {
   const [todoName, setTodoName] = useState('');
   const [submittedTodo, setSubmittedTodo] = useState(null);
-  const [todoList, setTodoList] = useState([]);
+//const [todoList, setTodoList] = useState([]);
 //const [todoState, setTodoState] = useState({ userInput: '', todoList: [] });
+
+const todoListReducer = (state, action) => {
+  switch(action.type) {
+    case 'ADD':
+      return state.concat(action.payload);
+    case 'SET':
+      return action.payload;  
+    case 'REMOVE':
+      return state.filter((todo)=> todo.id !== action.payload);
+    default:
+      return state;    
+  }
+}
+
+const [todoList, dispatch] = useReducer(todoListReducer, [])
 
 useEffect(() => {
   axios.get('https://test-627e9.firebaseio.com/todos.json').then(result => {
@@ -15,7 +30,7 @@ useEffect(() => {
     for (const key in todoData) {
       todos.push({id: key, name: todoData[key].name})
     }
-    setTodoList(todos);
+    dispatch({type: 'SET', payload: todos });
   });
   return () => {
     console.log('Clean up!')
@@ -25,6 +40,8 @@ useEffect(() => {
 const mouseMoveHandler = event => {
   console.log(event.clientX, event.clientY);
 };
+
+
 
 useEffect(() => {
   document.addEventListener('mousemove', mouseMoveHandler);
@@ -36,7 +53,7 @@ useEffect(() => {
   useEffect(
     ()=>{
       if(submittedTodo) {
-        setTodoList(todoList.concat(submittedTodo));
+        dispatch({type: 'ADD', payload: submittedTodo });
       }
     }, 
     [submittedTodo]

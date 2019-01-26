@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useReducer, useRef } from 'react';
+import React, { useState, useEffect, useReducer, useRef, useMemo } from 'react';
 import axios from 'axios';
 
-import List from './List'; 
+import List from './List';
 
 const todo = props => {
   const [inputIsValid, setInputIsValid] = useState(false);
@@ -41,12 +41,12 @@ const todo = props => {
     };
   }, []);
 
-// const mouseMoveHandler = event => {
-//    console.log(event.clientX, event.clientY);
-//  };
+  // const mouseMoveHandler = event => {
+  //    console.log(event.clientX, event.clientY);
+  //  };
 
   const inputValidationHandler = event => {
-    if(event.target.value.trim() === '') {
+    if (event.target.value.trim() === '') {
       setInputIsValid(false);
     } else {
       setInputIsValid(true);
@@ -55,12 +55,12 @@ const todo = props => {
 
 
 
-//  useEffect(() => {
-//    document.addEventListener('mousemove', mouseMoveHandler);
-//    return () => {
-//      document.removeEventListener('mousemove', mouseMoveHandler);
-//    };
-//  }, []);
+  //  useEffect(() => {
+  //    document.addEventListener('mousemove', mouseMoveHandler);
+  //    return () => {
+  //      document.removeEventListener('mousemove', mouseMoveHandler);
+  //    };
+  //  }, []);
 
   //  useEffect(
   //    ()=>{
@@ -116,13 +116,17 @@ const todo = props => {
         placeholder="Todo"
         ref={todoInputRef}
         onChange={inputValidationHandler}
-        style = {{backgroundColor: inputIsValid ? 'transparent' : 'red'}}
+        style={{ backgroundColor: inputIsValid ? 'transparent' : 'red' }}
       //value={todoState.userInput}
       />
       <button type="button" onClick={todoAddHandler}>
         Add
       </button>
-      <List items={todoList} onClick={todoRemoveHandler}/>
+      {useMemo(
+      () => (
+        < List items={todoList} onClick={todoRemoveHandler} />
+      ), 
+      [todoList])}
     </React.Fragment>
   );
 };

@@ -5,3 +5,5 @@ Here are my first steps in React programming, exercises of the crash course, to 
 Started Maximilliam Schwarzmuller's course on React. 
 
 Continued studying Redux.
+
+Moved on to React hooks.

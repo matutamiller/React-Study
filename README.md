@@ -1,6 +1,6 @@
 # React-Study
 
-Here are my first steps in React programming. Exercises of the crash course, to be more precise.
+Here are my first steps in React programming. Exercises of the crash course.
 
 Started Maximilliam Schwarzmuller's course on React. 
 
